@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:5.0
+        ports:
+        - containerPort: 6379
+        readinessProbe:
+          periodSeconds: 5
+          tcpSocket:
+            port: 6379
+        livenessProbe:
+          periodSeconds: 5
+          tcpSocket:
+            port: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+      volumes:
+      - name: redis-data
+        emptyDir: {}
