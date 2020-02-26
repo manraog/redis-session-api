@@ -1,10 +1,10 @@
-# Start from the latest golang base image
+# Golang base image
 FROM golang:1.7.4
 
-# Set the Current Working Directory inside the container
+# Set the current working directory
 WORKDIR /go/src/app
 
-# Copy go mod and sum files
+# Copy code file
 COPY . .
 
 # Download all dependencies
@@ -14,7 +14,7 @@ RUN go install -v ./...
 # Build the Go app
 RUN go build -o api .
 
-# Expose port 8080 to the outside world
+# Expose port
 EXPOSE 8080
 
 # Command to run the executable
